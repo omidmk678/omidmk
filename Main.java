@@ -1,27 +1,27 @@
-import java.io.File;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
+import javax.swing.*;
+import java.util.Date;
 
 public class Main {
-    public static void main(String[] args) {
-        MusicCollection pop = new MusicCollection();
-        MusicCollection jazz = new MusicCollection();
-        MusicCollection rock = new MusicCollection();
-        MusicCollection country = new MusicCollection();
+    public static void main(String[] args)
+    {
+        Date d1 = new Date();
+        int hour = (int) (d1.getTime()/(1000 * 60 * 60) % 24);
+        int minute = (int) (d1.getTime()/(1000 * 60) % 60);
+        int second = (int) (d1.getTime()/ 1000 % 60);
+        minute += 30;
+        if(minute >= 60) hour++;
+        minute %= 60;
+        hour = (hour + 3) % 24;
 
-        pop.addFile("to ro doos drm","Downloads","Shadmehr",1386);
-        rock.addFavoriteFile("lose your self");
-        pop.findFiles("doktre bandar");
-        jazz.addFile("Labe karoon","Musics","Qomeyshi",1380);
-        country.addFile("Iran","ahang ha","Aqili",1390);
-        pop.listFile(0);
-
-        pop.addFavoriteFile("Man ye divoonm");
-        pop.addFile("Sunshine","new folder","Goooodarziiih",1398);
-        pop.searcher("rock you");
-        pop.listAllFiles();
+        ClockDisplay clock = new ClockDisplay(hour,minute,second);
+        for (;;){
+            clock.timeTick();
+            System.out.println(clock.getTime());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
 }
