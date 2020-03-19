@@ -6,22 +6,22 @@ import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
-        Student std1 = new Student("Ehsan","Edalat", "9031066");
-        Student std2 = new Student("Seyed", "Ahmadpanah", "9031806");
-        Student std3 = new Student("Ahmad", "Asadi", "9031054");
+        MusicCollection pop = new MusicCollection();
+        MusicCollection jazz = new MusicCollection();
+        MusicCollection rock = new MusicCollection();
+        MusicCollection country = new MusicCollection();
 
-        std1.print();
-        std1.setGrade(15);
-        std1.print();
+        pop.addFile("to ro doos drm","Downloads","Shadmehr",1386);
+        rock.addFavoriteFile("lose your self");
+        pop.findFiles("doktre bandar");
+        jazz.addFile("Labe karoon","Musics","Qomeyshi",1380);
+        country.addFile("Iran","ahang ha","Aqili",1390);
+        pop.listFile(0);
 
-        std2.print();
-        std2.setGrade(11);
-        std2.print();
-
-        std3.print();
-        std3.setFirstName("HamidReza");
-        std3.print();
-
+        pop.addFavoriteFile("Man ye divoonm");
+        pop.addFile("Sunshine","new folder","Goooodarziiih",1398);
+        pop.searcher("rock you");
+        pop.listAllFiles();
     }
 
 }
