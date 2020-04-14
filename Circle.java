@@ -1,7 +1,7 @@
 /**
  * This class holds information of circle
  */
-public class Circle {
+public class Circle extends Shape{
 
     private int radius;
 
@@ -21,25 +21,15 @@ public class Circle {
         return radius;
     }
 
-    /**
-     * This method will calculate circle's perimeter.
-     * @return perimeter of circle.
-     */
-    public double calculatePerimeter(){
+    @Override
+    public double calculatePerimeter() {
         return 2*Math.PI*radius;
     }
-
-    /**
-     * This method will calculate circle's area.
-     * @return Area of circle.
-     */
-    public double calculateArea(){
-        return Math.PI*radius*radius;
+    @Override
+    public double calculateArea() {
+        return Math.PI * radius * radius;
     }
-
-    /**
-     * print the area and perimeter of circle
-     */
+    @Override
     public void draw() {
         System.out.println("Shape is Circle.");
         System.out.printf("Perimeter = %.2f | Area = %.2f\n",calculatePerimeter(),calculateArea());
