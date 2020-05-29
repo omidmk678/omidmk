@@ -1,0 +1,2 @@
+you can change number of clients in 'Server' class
+and 'NUMBER_OF_CLIENTS' variable (default is 3).

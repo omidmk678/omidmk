@@ -1,37 +1,22 @@
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.*;
 
 public class Server {
+    private static final int NUMBER_OF_CLIENTS = 3;
+
     public static void main(String[] args) {
+        ExecutorService pool = Executors.newCachedThreadPool();
         //open server
         try (ServerSocket serverSocket = new ServerSocket(5000)){
             System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
             //open socket for server
-            try (Socket socket = serverSocket.accept()){
+            for (int i = 0; i < NUMBER_OF_CLIENTS; i++){
+                Socket socket = serverSocket.accept();
                 System.out.println("Server Just connected to " + socket.getRemoteSocketAddress());
-                try(BufferedInputStream inFromClient = new BufferedInputStream(socket.getInputStream());
-                    DataOutputStream outToClient = new DataOutputStream(socket.getOutputStream())) {
-                    String readMessage = "",clientMessage = "";
-                    while(!readMessage.toLowerCase().equals("over")){
-                        //receiving data from client
-                        byte[] buffer = new byte[2048];
-                        int count = inFromClient.read(buffer);
-                        readMessage = new String(buffer, 0, count);
-                        System.out.format("\"%s\" RECEIVED by server.\n", readMessage);
-                        clientMessage = clientMessage.concat(readMessage);
-
-                        //sending data to client
-                        outToClient.write(clientMessage.getBytes());
-                        System.out.format("\"%s\" SENT by server.\n", clientMessage);
-                    }
-                    System.out.println("Communication has been finished.");
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                System.out.println("Closing client...");
-            }catch (IOException ex){
-                ex.printStackTrace();
+                pool.execute(new Handler(socket, i + 1));
             }
+            pool.shutdown();
             System.out.println("Done.\nClosing server...");
         } catch (IOException ex) {
             ex.printStackTrace();
